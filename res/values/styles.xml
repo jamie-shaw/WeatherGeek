@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/light_yellow</item>
+    </style>
+
+    <style name="TidePredictionText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">3dip</item>
+    </style>
+
+    <style name="Label.TidePredictionLabel">
+        <item name="android:paddingLeft">15dip</item>
+        <item name="android:layout_marginTop">8dip</item>
+        <item name="android:layout_marginBottom">5dip</item>
+    </style>
+
+    <style name="Label.TidePredictionHeaderLabel">
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:layout_marginTop">5dip</item>
+        <item name="android:layout_marginBottom">1dip</item>
+    </style>
+
+    <style name="ForecastText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:paddingRight">5dip</item>
+    </style>
+
+    <style name="ForecastLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/light_yellow</item>
+        <item name="android:layout_marginTop">5dip</item>
+        <item name="android:layout_marginBottom">10dip</item>
+    </style>
+
+    <style name="ForecastImage">
+        <item name="android:layout_column">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">4dip</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:paddingBottom">10dip</item>
+    </style>
+
+    <style name="DailyForecastImage">
+        <item name="android:layout_column">1</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">5dip</item>
+    </style>
+
+    <style name="TempLabel">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:textColor">@color/light_yellow</item>
+    </style>
+
+    <style name="DailyTempLabel">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:textColor">@color/light_yellow</item>
+        <item name="android:paddingBottom">10dip</item>
+    </style>
+
+    <style name="CurrentConditionsLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">5dip</item>
+        <item name="android:paddingLeft">10dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/light_yellow</item>
+    </style>
+
+    <style name="CurrentConditions">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">10dip</item>
+        <item name="android:paddingBottom">5dip</item>
+    </style>
+
+    <style name="LocationLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">5dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/light_yellow</item>
+        <item name="android:layout_marginTop">5dip</item>
+        <item name="android:layout_marginBottom">10dip</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dip</item>
+        <item name="android:layout_marginTop">10dip</item>
+        <item name="android:background">#333333</item>
+    </style>
+
+</resources>

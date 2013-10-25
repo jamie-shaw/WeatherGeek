@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WeatherGeek</string>
+    <string name="station_label">Station</string>
+    <string name="current_conditions_label">Current Conditions</string>
+    <string name="temperature_label">Temperature</string>
+    <string name="humidity_label">Humidity</string>
+    <string name="hi_temp_label">High Temp</string>
+    <string name="lo_temp_label">Low Temp</string>
+    <string name="wind_chill_label">Wind Chill</string>
+    <string name="pref_key_zip_code">zip_code</string>
+    <string name="sunrise_label">Sunrise</string>
+    <string name="sunset_label">Sunset</string>
+</resources>

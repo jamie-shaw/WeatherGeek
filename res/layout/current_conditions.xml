@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <View style="@style/Divider" />
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroller"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dip"
+        android:layout_marginTop="10dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/imgCurrentConditions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="20dip"
+                    android:layout_marginTop="4dip"
+                    android:contentDescription="Current Conditions Weather Icon" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textViewStation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/textViewDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/textViewTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/Divider" />
+
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:stretchColumns="1" >
+
+                <TableRow>
+                    <TextView
+                        android:id="@+id/textViewCurrentConditionsLabel"
+                        style="@style/CurrentConditionsLabel"
+                        android:text="@string/current_conditions_label" />
+
+                    <TextView
+                        android:id="@+id/textViewCurrentConditions"
+                        style="@style/CurrentConditions" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/textViewTemperatureLabel"
+                        style="@style/CurrentConditionsLabel"
+                        android:text="@string/temperature_label" />
+
+                    <TextView
+                        android:id="@+id/textViewTemperature"
+                        style="@style/CurrentConditions" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/textViewWindChillLabel"
+                        style="@style/CurrentConditionsLabel"
+                        android:text="@string/wind_chill_label" />
+
+                    <TextView
+                        android:id="@+id/textViewWindChill"
+                        style="@style/CurrentConditions" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/textViewHumidityLabel"
+                        style="@style/CurrentConditionsLabel"
+                        android:text="@string/humidity_label" />
+
+                    <TextView
+                        android:id="@+id/textViewHumidity"
+                        style="@style/CurrentConditions" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/textViewHiTempLabel"
+                        style="@style/CurrentConditionsLabel"
+                        android:text="@string/hi_temp_label" />
+
+                    <TextView
+                        android:id="@+id/textViewHiTemp"
+                        style="@style/CurrentConditions" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/textViewLoTempLabel"
+                        style="@style/CurrentConditionsLabel"
+                        android:text="@string/lo_temp_label" />
+
+                    <TextView
+                        android:id="@+id/textViewLoTemp"
+                        style="@style/CurrentConditions" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/textViewSunriseLabel"
+                        style="@style/CurrentConditionsLabel"
+                        android:text="@string/sunrise_label" />
+
+                    <TextView
+                        android:id="@+id/textViewSunrise"
+                        style="@style/CurrentConditions" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/textViewSunsetLabel"
+                        style="@style/CurrentConditionsLabel"
+                        android:text="@string/sunset_label" />
+
+                    <TextView
+                        android:id="@+id/textViewSunset"
+                        style="@style/CurrentConditions" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/cell1"
+        layout="@layout/toolbar" />
+
+</RelativeLayout>
