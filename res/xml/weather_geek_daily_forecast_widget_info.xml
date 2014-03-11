@@ -1,0 +1,8 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="160dp"
+    android:minHeight="80dp"
+    android:updatePeriodMillis="20000"
+    android:initialLayout="@layout/daily_forecast_widget" 
+    android:resizeMode="horizontal|vertical"
+>
+</appwidget-provider>
