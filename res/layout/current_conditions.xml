@@ -6,7 +6,6 @@
     <View style="@style/Divider" />
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/scroller"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -30,7 +29,7 @@
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="20dip"
                     android:layout_marginTop="4dip"
-                    android:contentDescription="Current Conditions Weather Icon" />
+                    android:contentDescription="@string/current_conditions_icon_label" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -57,7 +56,6 @@
             <View style="@style/Divider" />
 
             <TableLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:stretchColumns="1" >

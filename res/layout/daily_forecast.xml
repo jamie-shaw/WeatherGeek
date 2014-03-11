@@ -5,14 +5,8 @@
     
     <View style="@style/Divider" />
 
-    <ListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/forecastList"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="45dip"
-        android:layout_marginTop="10dip"
-        android:dividerHeight="2dip" />
+    <include
+        layout="@layout/daily_forecast_list" />
 
     <include
         android:id="@+id/cell1"

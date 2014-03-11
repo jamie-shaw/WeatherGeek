@@ -2,4 +2,5 @@
 <resources>
     <color name="background_color">#888888</color>
     <color name="light_yellow">#FFFF77</color>
+    <color name="widget_background_color">#000000</color>
 </resources>

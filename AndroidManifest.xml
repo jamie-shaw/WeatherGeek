@@ -4,7 +4,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="10" />
+    <uses-sdk android:minSdkVersion="14" 
+        android:targetSdkVersion="18"/>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -13,6 +14,7 @@
         android:debuggable="true"
         android:icon="@drawable/weathergeek"
         android:label="@string/app_name" >
+        
         <activity
             android:name=".DailyForecastActivity"
             android:label="@string/app_name"
@@ -47,6 +49,18 @@
             android:label="@string/app_name"
             android:launchMode="standard"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
+        
+        <receiver android:name="DailyForecastWidgetProvider">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data android:name="android.appwidget.provider"
+              		   android:resource="@xml/weather_geek_daily_forecast_widget_info" />
+		</receiver>
+		
+        <service android:name="DailyForecastRemoteViewService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false" />
     </application>
 
 </manifest>

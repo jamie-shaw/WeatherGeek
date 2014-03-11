@@ -12,4 +12,5 @@
     <string name="pref_key_zip_code">zip_code</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
+    <string name="current_conditions_icon_label">Current Conditions Weather Icon</string>
 </resources>
