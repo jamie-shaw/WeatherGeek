@@ -13,8 +13,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.google.gson.Gson;
-import com.weatherapp.service.valueobject.HourlyForecast;
-import com.weatherapp.util.ImageUtil;
+import com.weatherapp.service.model.HourlyForecast;
+import com.weatherapp.util.WeatherbugImageUtil;
 
 public class WeatherbugHourlyForecastService {
 
@@ -28,7 +28,7 @@ public class WeatherbugHourlyForecastService {
 		try {
 			// Send request
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			URI uri = new URI("http://direct.weatherbug.com/DataService/GetForecastHourly.ashx?ht=t&ht=i&ht=d&ht=fl&zip=" + zipCode);
+			URI uri = new URI("http://direct.Weatherbug.com/DataService/GetForecastHourly.ashx?ht=t&ht=i&ht=d&ht=fl&zip=" + zipCode);
 
 			HttpGet method = new HttpGet(uri);
 			HttpResponse response = httpClient.execute(method);
@@ -38,7 +38,7 @@ public class WeatherbugHourlyForecastService {
 			Gson parser = new Gson();
 		    
 			// Build the forecast list
-			List<WeatherBugHourlyForecast> wbForecasts = parser.fromJson(reader, WeatherBugHourlyForecastList.class).getForecastHourlyList();
+			List<WeatherbugHourlyForecast> wbForecasts = parser.fromJson(reader, WeatherbugHourlyForecastList.class).getForecastHourlyList();
 
 			int forecastNumber = 0;
 			
@@ -61,17 +61,17 @@ public class WeatherbugHourlyForecastService {
 	}
 	
 	@SuppressWarnings("unused")
-	private class WeatherBugHourlyForecastList {
+	private class WeatherbugHourlyForecastList {
 		
-		private List<WeatherBugHourlyForecast> forecastHourlyList;
+		private List<WeatherbugHourlyForecast> forecastHourlyList;
 		private String temperatureUnits;
 		private String windUnits;
 		
-		public List<WeatherBugHourlyForecast> getForecastHourlyList() {
+		public List<WeatherbugHourlyForecast> getForecastHourlyList() {
 			return forecastHourlyList;
 		}
 
-		public void setForecastHourlyList(List<WeatherBugHourlyForecast> forecastHourlyList) {
+		public void setForecastHourlyList(List<WeatherbugHourlyForecast> forecastHourlyList) {
 			this.forecastHourlyList = forecastHourlyList;
 		}
 		public String getTemperatureUnits() {
@@ -89,7 +89,7 @@ public class WeatherbugHourlyForecastService {
 	}
 	
 	@SuppressWarnings("unused")
-	private class WeatherBugHourlyForecast implements HourlyForecast, Serializable {
+	private class WeatherbugHourlyForecast implements HourlyForecast, Serializable {
 
 		private static final long serialVersionUID = 1L;
 		private String chancePrecip;
@@ -119,7 +119,7 @@ public class WeatherbugHourlyForecastService {
 		}
 		@Override
 		public String getImageURL() {
-			return ImageUtil.getWeatherbugIconUrl(icon);
+			return WeatherbugImageUtil.getWeatherbugIconUrl(icon);
 		}
 		@Override
 		public String getLongPrediction() {

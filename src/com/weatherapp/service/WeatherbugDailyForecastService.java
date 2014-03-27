@@ -13,8 +13,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.location.Location;
 
 import com.google.gson.Gson;
-import com.weatherapp.service.valueobject.DailyForecast;
-import com.weatherapp.util.ImageUtil;
+import com.weatherapp.service.model.DailyForecast;
+import com.weatherapp.util.WeatherbugImageUtil;
 
 public class WeatherbugDailyForecastService {
 
@@ -43,8 +43,7 @@ public class WeatherbugDailyForecastService {
 			Gson parser = new Gson();
 
 			// Build the forecast list
-			List<WeatherBugForecast> wbForecasts = parser.fromJson(reader, WeatherBugForecastList.class)
-					.getForecastList();
+			List<WeatherBugForecast> wbForecasts = parser.fromJson(reader, WeatherBugForecastList.class).getForecastList();
 			DailyForecast forecast;
 
 			for (WeatherBugForecast currentWbForecast : wbForecasts) {
@@ -55,8 +54,8 @@ public class WeatherbugDailyForecastService {
 
 					forecast.setImageName(currentWbForecast.getDayIcon());
 					forecast.setLongPrediction(currentWbForecast.getDayPred());
-					forecast.setHighTemp(currentWbForecast.getHigh());
-					forecast.setImageURL(ImageUtil.getWeatherbugIconUrl(currentWbForecast.getDayIcon()));
+					forecast.setTemperature(currentWbForecast.getHigh());
+					forecast.setImageURL(WeatherbugImageUtil.getWeatherbugIconUrl(currentWbForecast.getDayIcon()));
 					forecast.setLongDay(currentWbForecast.getDayTitle());
 					forecasts.add(forecast);
 				}
@@ -67,8 +66,8 @@ public class WeatherbugDailyForecastService {
 
 					forecast.setImageName(currentWbForecast.getNightIcon());
 					forecast.setLongPrediction(currentWbForecast.getNightPred());
-					forecast.setHighTemp(currentWbForecast.getLow());
-					forecast.setImageURL(ImageUtil.getWeatherbugIconUrl(currentWbForecast.getNightIcon()));
+					forecast.setTemperature(currentWbForecast.getLow());
+					forecast.setImageURL(WeatherbugImageUtil.getWeatherbugIconUrl(currentWbForecast.getNightIcon()));
 					forecast.setLongDay(currentWbForecast.getNightTitle());
 					forecasts.add(forecast);
 				}

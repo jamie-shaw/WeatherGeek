@@ -13,8 +13,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.location.Location;
 
 import com.google.gson.Gson;
-import com.weatherapp.service.valueobject.Observation;
-import com.weatherapp.util.ImageUtil;
+import com.weatherapp.service.model.Observation;
+import com.weatherapp.util.WeatherbugImageUtil;
 
 public class WeatherbugCurrentConditionsService {
 
@@ -141,7 +141,7 @@ public class WeatherbugCurrentConditionsService {
 		}
 		@Override
 		public String getImageURL() {
-			return ImageUtil.getWeatherbugIconUrl(icon, "90x76", false);
+			return WeatherbugImageUtil.getWeatherbugIconUrl(icon, "90x76", false);
 		}
 		public void setStationName(String stationName) {
 			this.stationName = stationName;
