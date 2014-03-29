@@ -5,7 +5,6 @@ import java.util.List;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -16,7 +15,6 @@ import android.widget.RemoteViewsService;
 import com.weatherapp.model.DailyForecast;
 import com.weatherapp.service.DailyForecastService;
 import com.weatherapp.service.ServiceFactory;
-import com.weatherapp.service.weatherbug.WeatherbugDailyForecastService;
 
 public class DailyForecastRemoteViewService extends RemoteViewsService {
 	 
