@@ -142,6 +142,7 @@ public class WeatherbugHourlyForecastService implements HourlyForecastService {
 		public void setChancePrecip(String chancePrecip) {
 			this.chancePrecip = chancePrecip;
 		}
+		@Override
 		public Date getDateTime() {
 			long offset = TimeZone.getDefault().getRawOffset(); 
 			long dst =  TimeZone.getDefault().getDSTSavings();
