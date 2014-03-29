@@ -1,4 +1,4 @@
-package com.weatherapp.service;
+package com.weatherapp.service.aeris;
 
 import java.io.InputStreamReader;
 import java.io.Reader;

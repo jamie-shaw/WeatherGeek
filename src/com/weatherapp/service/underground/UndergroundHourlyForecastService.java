@@ -1,4 +1,4 @@
-package com.weatherapp.service;
+package com.weatherapp.service.underground;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,6 +16,7 @@ import android.location.Location;
 
 import com.weatherapp.model.DefaultHourlyForecast;
 import com.weatherapp.model.HourlyForecast;
+import com.weatherapp.service.HourlyForecastService;
 
 public class UndergroundHourlyForecastService implements HourlyForecastService {
 

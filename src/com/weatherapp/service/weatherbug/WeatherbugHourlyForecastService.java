@@ -1,4 +1,4 @@
-package com.weatherapp.service;
+package com.weatherapp.service.weatherbug;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -7,6 +7,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -16,7 +17,8 @@ import android.location.Location;
 
 import com.google.gson.Gson;
 import com.weatherapp.model.HourlyForecast;
-import com.weatherapp.util.WeatherbugImageUtil;
+import com.weatherapp.service.HourlyForecastService;
+import com.weatherapp.service.ServiceFactory;
 
 public class WeatherbugHourlyForecastService implements HourlyForecastService {
 
@@ -25,22 +27,22 @@ public class WeatherbugHourlyForecastService implements HourlyForecastService {
 	
 	@Override
 	public List<HourlyForecast> getForecastByLocation(Location location) {
-		return null;
+		return getForecast("la=" + location.getLatitude() + "&lo=" + location.getLongitude());
 	}
 
 	@Override
 	public List<HourlyForecast> getForecastByZipCode(String zipCode) {
-		return getForecasts(zipCode);
+		return getForecast("zip=" + zipCode);
 	}
 	
-	private List<HourlyForecast> getForecasts(String zipCode) {
+	private List<HourlyForecast> getForecast(String criteria) {
 		
 		List<HourlyForecast> forecasts = new ArrayList<HourlyForecast>();
 		
 		try {
 			// Send request
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			URI uri = new URI("http://direct.Weatherbug.com/DataService/GetForecastHourly.ashx?ht=t&ht=i&ht=d&ht=fl&zip=" + zipCode);
+			URI uri = new URI("http://direct.Weatherbug.com/DataService/GetForecastHourly.ashx?ht=t&ht=i&ht=d&ht=fl&" + criteria);
 
 			HttpGet method = new HttpGet(uri);
 			HttpResponse response = httpClient.execute(method);
@@ -131,7 +133,7 @@ public class WeatherbugHourlyForecastService implements HourlyForecastService {
 		}
 		@Override
 		public String getImageURL() {
-			return WeatherbugImageUtil.getWeatherbugIconUrl(icon);
+			return ServiceFactory.getImageService().getIconUrl(icon);
 		}
 		@Override
 		public String getLongPrediction() {
@@ -141,7 +143,11 @@ public class WeatherbugHourlyForecastService implements HourlyForecastService {
 			this.chancePrecip = chancePrecip;
 		}
 		public Date getDateTime() {
-			return new Date(Long.valueOf(dateTime));
+			long offset = TimeZone.getDefault().getRawOffset(); 
+			long dst =  TimeZone.getDefault().getDSTSavings();
+			long millis = Long.parseLong(dateTime);
+			
+			return new Date(Long.valueOf(millis - offset - dst));
 		}
 		public void setDateTime(String dateTime) {
 			this.dateTime = dateTime;

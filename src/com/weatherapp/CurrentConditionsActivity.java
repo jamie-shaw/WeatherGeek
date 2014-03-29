@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.weatherapp.model.Observation;
-import com.weatherapp.service.WeatherbugCurrentConditionsService;
+import com.weatherapp.service.weatherbug.WeatherbugCurrentConditionsService;
 import com.weatherapp.task.DownloadImageTask;
 
 public class CurrentConditionsActivity extends BaseActivity {

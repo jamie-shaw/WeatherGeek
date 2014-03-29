@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.weatherapp.model.TidePrediction;
-import com.weatherapp.service.AerisTideService;
+import com.weatherapp.service.aeris.AerisTideService;
 
 public class TidePredictionActivity extends BaseActivity {
 

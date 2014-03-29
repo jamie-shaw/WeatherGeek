@@ -1,4 +1,4 @@
-package com.weatherapp.service;
+package com.weatherapp.service.weatherbug;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -14,7 +14,7 @@ import android.location.Location;
 
 import com.google.gson.Gson;
 import com.weatherapp.model.Observation;
-import com.weatherapp.util.WeatherbugImageUtil;
+import com.weatherapp.service.ServiceFactory;
 
 public class WeatherbugCurrentConditionsService {
 
@@ -141,7 +141,7 @@ public class WeatherbugCurrentConditionsService {
 		}
 		@Override
 		public String getImageURL() {
-			return WeatherbugImageUtil.getWeatherbugIconUrl(icon, "90x76", false);
+			return ServiceFactory.getImageService().getIconUrl(icon, "90x76", false);
 		}
 		public void setStationName(String stationName) {
 			this.stationName = stationName;

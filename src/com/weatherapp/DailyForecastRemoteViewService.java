@@ -14,7 +14,9 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.weatherapp.model.DailyForecast;
-import com.weatherapp.service.WeatherbugDailyForecastService;
+import com.weatherapp.service.DailyForecastService;
+import com.weatherapp.service.ServiceFactory;
+import com.weatherapp.service.weatherbug.WeatherbugDailyForecastService;
 
 public class DailyForecastRemoteViewService extends RemoteViewsService {
 	 
@@ -122,7 +124,8 @@ class DailyForecastRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 		    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 			Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 			
-			forecasts = WeatherbugDailyForecastService.getForecastByLocation(location);
+			DailyForecastService forecastService = ServiceFactory.getDailyForecastService();
+			forecasts = forecastService.getForecastByLocation(location);
 	    	
 			return forecasts;
 	    }

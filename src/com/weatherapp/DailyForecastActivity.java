@@ -16,7 +16,7 @@ import android.widget.ListView;
 import com.weatherapp.model.DailyForecast;
 import com.weatherapp.service.DailyForecastService;
 import com.weatherapp.service.ServiceFactory;
-import com.weatherapp.service.UndergroundDailyForecastService;
+import com.weatherapp.service.underground.UndergroundDailyForecastService;
 import com.weatherapp.viewadapter.DailyForecastListAdapter;
 
 public class DailyForecastActivity extends BaseActivity {

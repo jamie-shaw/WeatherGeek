@@ -1,4 +1,4 @@
-package com.weatherapp.service;
+package com.weatherapp.service.weatherbug;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
-public class WeatherbugStationService {
+public class WeatherbugLocationService {
 
 	/**
 	 * @param args
@@ -18,16 +18,17 @@ public class WeatherbugStationService {
 			
 		    // Construct data
 		    String data = URLEncoder.encode("ACode", "UTF-8") + "=" + URLEncoder.encode("A6466575693", "UTF-8");
-		    data += "&" + URLEncoder.encode("zipCode", "UTF-8") + "=" + URLEncoder.encode("04103", "UTF-8");
+		    data += "&" + URLEncoder.encode("SearchString", "UTF-8") + "=" + URLEncoder.encode("Portland", "UTF-8");
 		    
 		    // Send data
-		    URL url = new URL("http://A1111111111.api.wxbug.net/getStationsXML.aspx?" + data);
+		    URL url = new URL("http://A1111111111.api.wxbug.net/getLocationsXML.aspx?" + data);
 		    URLConnection conn = url.openConnection();
 		    conn.setDoOutput(true);
 		    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 		    wr.flush();
 		     
-		    // Get the response		    System.out.println("Processing response");
+		    // Get the response
+		    System.out.println("Processing response");
 		    
 		     BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		    String line;

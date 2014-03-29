@@ -1,4 +1,4 @@
-package com.weatherapp.service;
+package com.weatherapp.service.weatherbug;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -15,15 +15,18 @@ import android.location.Location;
 import com.google.gson.Gson;
 import com.weatherapp.model.DailyForecast;
 import com.weatherapp.model.DefaultDailyForecast;
-import com.weatherapp.util.WeatherbugImageUtil;
+import com.weatherapp.service.DailyForecastService;
+import com.weatherapp.service.ServiceFactory;
 
-public class WeatherbugDailyForecastService {
+public class WeatherbugDailyForecastService implements DailyForecastService {
 
-	public static List<DailyForecast> getForecastByLocation(Location location) {
+	@Override
+	public List<DailyForecast> getForecastByLocation(Location location) {
 		return getForecast("la=" + location.getLatitude() + "&lo=" + location.getLongitude());
 	}
 
-	public static List<DailyForecast> getForecastByZipCode(String zipCode) {
+	@Override
+	public List<DailyForecast> getForecastByZipCode(String zipCode) {
 		return getForecast("zip=" + zipCode);
 	}
 
@@ -56,7 +59,7 @@ public class WeatherbugDailyForecastService {
 					forecast.setImageName(currentWbForecast.getDayIcon());
 					forecast.setLongPrediction(currentWbForecast.getDayPred());
 					forecast.setTemperature(currentWbForecast.getHigh());
-					forecast.setImageURL(WeatherbugImageUtil.getWeatherbugIconUrl(currentWbForecast.getDayIcon()));
+					forecast.setImageURL(ServiceFactory.getImageService().getIconUrl(currentWbForecast.getDayIcon()));
 					forecast.setLongDay(currentWbForecast.getDayTitle());
 					forecasts.add(forecast);
 				}
@@ -68,7 +71,7 @@ public class WeatherbugDailyForecastService {
 					forecast.setImageName(currentWbForecast.getNightIcon());
 					forecast.setLongPrediction(currentWbForecast.getNightPred());
 					forecast.setTemperature(currentWbForecast.getLow());
-					forecast.setImageURL(WeatherbugImageUtil.getWeatherbugIconUrl(currentWbForecast.getNightIcon()));
+					forecast.setImageURL(ServiceFactory.getImageService().getIconUrl(currentWbForecast.getNightIcon()));
 					forecast.setLongDay(currentWbForecast.getNightTitle());
 					forecasts.add(forecast);
 				}
