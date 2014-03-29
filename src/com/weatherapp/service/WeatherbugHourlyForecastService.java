@@ -12,16 +12,28 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.location.Location;
+
 import com.google.gson.Gson;
-import com.weatherapp.service.model.HourlyForecast;
+import com.weatherapp.model.HourlyForecast;
 import com.weatherapp.util.WeatherbugImageUtil;
 
-public class WeatherbugHourlyForecastService {
+public class WeatherbugHourlyForecastService implements HourlyForecastService {
 
 	private static final int INTERVAL = 2;
 	private static final int PERIODS = 24;
+	
+	@Override
+	public List<HourlyForecast> getForecastByLocation(Location location) {
+		return null;
+	}
 
-	public static List<HourlyForecast> getForecastsFromJSON(String zipCode) {
+	@Override
+	public List<HourlyForecast> getForecastByZipCode(String zipCode) {
+		return getForecasts(zipCode);
+	}
+	
+	private List<HourlyForecast> getForecasts(String zipCode) {
 		
 		List<HourlyForecast> forecasts = new ArrayList<HourlyForecast>();
 		
@@ -166,4 +178,5 @@ public class WeatherbugHourlyForecastService {
 		}
 
 	}
+
 }

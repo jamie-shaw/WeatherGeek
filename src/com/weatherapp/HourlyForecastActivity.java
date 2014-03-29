@@ -6,12 +6,16 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.weatherapp.service.WeatherbugHourlyForecastService;
-import com.weatherapp.service.valueobject.HourlyForecast;
+import com.weatherapp.model.HourlyForecast;
+import com.weatherapp.service.HourlyForecastService;
+import com.weatherapp.service.ServiceFactory;
 import com.weatherapp.util.Preferences;
 import com.weatherapp.viewadapter.HourlyForecastListAdapter;
 
@@ -89,8 +93,13 @@ public class HourlyForecastActivity extends BaseActivity {
 
 	    	if (needToLoad) {
 				System.out.println("loading hourly forecasts");
-				String zipCode = Preferences.getZipCode(activity.getBaseContext());
-				forecasts = WeatherbugHourlyForecastService.getForecastsFromJSON(zipCode);
+				
+			    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+				Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+				
+				HourlyForecastService forecastService = ServiceFactory.getHourlyForecastService();
+				forecasts = forecastService.getForecastByLocation(location);
+				
 				nextLoadHour = new Date().getHours();
 			}
 			return forecasts;

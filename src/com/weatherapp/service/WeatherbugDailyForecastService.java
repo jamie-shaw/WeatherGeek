@@ -13,7 +13,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.location.Location;
 
 import com.google.gson.Gson;
-import com.weatherapp.service.model.DailyForecast;
+import com.weatherapp.model.DailyForecast;
+import com.weatherapp.model.DefaultDailyForecast;
 import com.weatherapp.util.WeatherbugImageUtil;
 
 public class WeatherbugDailyForecastService {
@@ -50,7 +51,7 @@ public class WeatherbugDailyForecastService {
 
 				if (currentWbForecast.hasDay()) {
 					// Build daytime forecast
-					forecast = new DailyForecast();
+					forecast = new DefaultDailyForecast();
 
 					forecast.setImageName(currentWbForecast.getDayIcon());
 					forecast.setLongPrediction(currentWbForecast.getDayPred());
@@ -62,7 +63,7 @@ public class WeatherbugDailyForecastService {
 
 				if (currentWbForecast.hasNight()) {
 					// Build night forecast
-					forecast = new DailyForecast();
+					forecast = new DefaultDailyForecast();
 
 					forecast.setImageName(currentWbForecast.getNightIcon());
 					forecast.setLongPrediction(currentWbForecast.getNightPred());

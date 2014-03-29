@@ -5,6 +5,7 @@ import java.util.List;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -12,8 +13,8 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.weatherapp.model.DailyForecast;
 import com.weatherapp.service.WeatherbugDailyForecastService;
-import com.weatherapp.service.valueobject.DailyForecast;
 
 public class DailyForecastRemoteViewService extends RemoteViewsService {
 	 
@@ -37,6 +38,7 @@ class DailyForecastRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
 	@Override
 	public int getCount() {
+		Log.d("DailyForecastWidget", "Getting count");
 		return forecasts != null ? forecasts.size() : 0;
 	}
 
@@ -53,11 +55,31 @@ class DailyForecastRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
 	@Override
 	public RemoteViews getViewAt(int position) {
-	
-		RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.daily_forecast_text);
-		rv.setTextViewText(R.id.textViewForecast, position + forecasts.get(position).getLongPrediction());
+
+		Log.d("DailyForecastWidget", "Inflating row " + position);
 		
-		return rv;
+		// inflate label view
+		RemoteViews label = new RemoteViews(context.getPackageName(), R.layout.daily_forecast_label);
+		label.setTextViewText(R.id.textViewForecastLabel, forecasts.get(position).getLongDay());
+
+		
+		// inflate the icon/temp layout
+		
+		// inflate the icon view
+		
+		// inflate the temperature view
+		
+		// inflate the forecast text view
+		RemoteViews text = new RemoteViews(context.getPackageName(), R.layout.daily_forecast_text);
+		text.setTextViewText(R.id.textViewForecast, forecasts.get(position).getLongPrediction());
+		
+		// inflate row view
+		RemoteViews row = new RemoteViews(context.getPackageName(), R.layout.daily_forecast_row);
+		row.removeAllViews(R.id.dailyForecastRow);
+		row.addView(R.id.dailyForecastRow, label);
+		row.addView(R.id.dailyForecastRow, text);
+		
+		return row;
 	}
 
 	@Override
@@ -67,7 +89,7 @@ class DailyForecastRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
 	@Override
 	public boolean hasStableIds() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -95,7 +117,7 @@ class DailyForecastRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 
 	    protected List<DailyForecast> doInBackground(final String... args) {
 
-	    	Log.d("DailyForecastWidget ", "loading hourly forecasts");
+	    	Log.d("DailyForecastWidget", "loading hourly forecasts");
 			
 		    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 			Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -108,7 +130,7 @@ class DailyForecastRemoteViewFactory implements RemoteViewsService.RemoteViewsFa
 	    @Override
 	    protected void onPostExecute(final List<DailyForecast> forecasts) {
 	    	
-	    	Log.d("DailyForecastWidget ", "loaded " + forecasts.size() + " hourly forecasts");
+	    	Log.d("DailyForecastWidget", "loaded " + forecasts.size() + " hourly forecasts");
 	    	AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(appWidgetId, R.id.forecastList);
 	    	
 	    }

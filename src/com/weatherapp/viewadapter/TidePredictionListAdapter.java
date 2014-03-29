@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.weatherapp.R;
-import com.weatherapp.service.valueobject.TidePrediction;
+import com.weatherapp.model.TidePrediction;
 
 public class TidePredictionListAdapter extends ArrayAdapter<TidePrediction> {
 

@@ -1,4 +1,4 @@
-package com.weatherapp.service.valueobject;
+package com.weatherapp.model;
 
 import java.util.Date;
 

@@ -8,6 +8,7 @@ import java.net.URL;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.weatherapp.util.ImageCache;
@@ -31,17 +32,17 @@ public class DownloadImageTask extends AsyncTask<ImageView, Void, Bitmap> {
 		
 		if (bitmap == null) {
 			try {
-				System.out.println("fetching " + url);
-				//Pull the image down from the web
+				Log.d("DownloadImageTask", "fetching " + url);
+				// pull the image down from the web
 				bitmap = BitmapFactory.decodeStream((InputStream)new URL(url).getContent());
 				
-				//Save for later
+				// save for later
 				if (name != null) {
 					ImageCache.putImage(name, bitmap);
 				}
 			
 			} catch (MalformedURLException e) {
-				System.out.println("URL: " + url);
+				Log.e("DownloadImageTask", "URL: " + url);
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();

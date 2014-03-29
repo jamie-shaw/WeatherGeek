@@ -13,7 +13,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.location.Location;
 
 import com.google.gson.Gson;
-import com.weatherapp.service.model.Observation;
+import com.weatherapp.model.Observation;
 import com.weatherapp.util.WeatherbugImageUtil;
 
 public class WeatherbugCurrentConditionsService {

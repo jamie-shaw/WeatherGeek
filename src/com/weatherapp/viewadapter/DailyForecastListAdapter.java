@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.weatherapp.R;
-import com.weatherapp.service.valueobject.DailyForecast;
+import com.weatherapp.model.DailyForecast;
 import com.weatherapp.task.DownloadImageTask;
 
 public class DailyForecastListAdapter extends ArrayAdapter<DailyForecast> {
@@ -56,7 +56,7 @@ public class DailyForecastListAdapter extends ArrayAdapter<DailyForecast> {
 		task.execute(imageView);
 
         view = (TextView)convertView.findViewById(R.id.textViewHiTempDay); 
-        view.setText(" " + forecast.getHighTemp() + '\u00B0');
+        view.setText(" " + forecast.getTemperature() + '\u00B0');
    
         view = (TextView)convertView.findViewById(R.id.textViewForecast); 
         view.setText(forecast.getLongPrediction() + "\n");

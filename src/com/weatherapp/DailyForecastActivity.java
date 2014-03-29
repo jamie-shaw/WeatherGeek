@@ -13,8 +13,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.weatherapp.service.WeatherbugDailyForecastService;
-import com.weatherapp.service.valueobject.DailyForecast;
+import com.weatherapp.model.DailyForecast;
+import com.weatherapp.service.DailyForecastService;
+import com.weatherapp.service.ServiceFactory;
+import com.weatherapp.service.UndergroundDailyForecastService;
 import com.weatherapp.viewadapter.DailyForecastListAdapter;
 
 public class DailyForecastActivity extends BaseActivity {
@@ -100,7 +102,9 @@ public class DailyForecastActivity extends BaseActivity {
 			    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 				Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 				
-				forecasts = WeatherbugDailyForecastService.getForecastByLocation(location);
+				DailyForecastService forecastService = ServiceFactory.getDailyForecastService();
+				forecasts = forecastService.getForecastByLocation(location);
+				
 				nextLoadHour = new Date().getHours();
 			}
 	    	

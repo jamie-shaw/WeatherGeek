@@ -18,7 +18,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.location.Location;
 
 import com.google.gson.Gson;
-import com.weatherapp.service.model.TidePrediction;
+import com.weatherapp.model.TidePrediction;
 
 public class AerisTideService {
 

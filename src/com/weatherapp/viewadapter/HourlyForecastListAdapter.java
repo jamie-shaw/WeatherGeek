@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.weatherapp.R;
-import com.weatherapp.service.valueobject.HourlyForecast;
+import com.weatherapp.model.HourlyForecast;
 import com.weatherapp.task.DownloadImageTask;
 
 public class HourlyForecastListAdapter extends ArrayAdapter<HourlyForecast>{
@@ -30,7 +30,6 @@ public class HourlyForecastListAdapter extends ArrayAdapter<HourlyForecast>{
             
             inflater = LayoutInflater.from(context);
 			dateFormat = new SimpleDateFormat("h:mm a");
-			dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 
             this.forecasts = forecasts;
     }

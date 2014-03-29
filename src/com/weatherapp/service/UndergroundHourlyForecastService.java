@@ -1,53 +1,80 @@
 package com.weatherapp.service;
 
+import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
+import android.location.Location;
 
-import com.weatherapp.service.parser.UndergroundHourlyForecastSaxHandler;
-import com.weatherapp.service.valueobject.HourlyForecast;
+import com.weatherapp.model.DefaultHourlyForecast;
+import com.weatherapp.model.HourlyForecast;
 
-public class UndergroundHourlyForecastService {
+public class UndergroundHourlyForecastService implements HourlyForecastService {
 
-	public static List<HourlyForecast> getForecastsFromXML(String zipCode) {
+	private static final int INTERVAL = 2;
+	private static final int PERIODS = 24;
+
+	public List<HourlyForecast> getForecastByLocation(Location location) {
+		return getForecast(location.getLatitude() + "," + location.getLongitude());
+	}
+
+	public List<HourlyForecast> getForecastByZipCode(String zipCode) {
+		return getForecast(zipCode);
+	}
+	
+	private static List<HourlyForecast> getForecast(String criteria) {
 		
-		List<HourlyForecast> forecasts = null;
+		List<HourlyForecast> forecasts = new ArrayList<HourlyForecast>();
 		
 		try {
-	        //Get an XMLReader
-	        SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-	        parserFactory.setNamespaceAware(true);
-	        SAXParser parser = parserFactory.newSAXParser();
-	        XMLReader xmlReader = parser.getXMLReader();
-	        
-	        //Create a new ContentHandler and apply it to the XML-Reader
-	        UndergroundHourlyForecastSaxHandler forecastHandler = new UndergroundHourlyForecastSaxHandler();
-	        xmlReader.setContentHandler(forecastHandler);
+			// Send request
+			DefaultHttpClient httpClient = new DefaultHttpClient();
+			URI uri = new URI("http://api.wunderground.com/api/2b2713188f60c01d/hourly/q/" + criteria + ".json");
+
+			HttpGet method = new HttpGet(uri);
+			HttpResponse response = httpClient.execute(method);
+
+			// Parse the response
+		    BufferedReader streamReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+		    StringBuilder responseStrBuilder = new StringBuilder();
+
+		    String inputStr;
+		    while ((inputStr = streamReader.readLine()) != null) {
+		        responseStrBuilder.append(inputStr);
+		    }
+		    
+		    JSONObject base = new JSONObject(responseStrBuilder.toString());
+		    JSONArray jsonForecastList = base.getJSONArray("hourly_forecast"); 
+		    
+			// Build the forecast list
+		    int forecastNumber = 0;
+			
+			while (forecastNumber <= PERIODS) {
+				
+		    	if (forecastNumber == 0 || forecastNumber % INTERVAL == 0) { 
+		    		
+			    	JSONObject textForecast = jsonForecastList.getJSONObject(forecastNumber);
+					UndergroundHourlyForecast forecast = new UndergroundHourlyForecast();
+					
+					forecast.setDesc(textForecast.getString("condition"));
+					forecast.setIcon(textForecast.getString("icon"));
+					forecast.setDateTime(textForecast.getJSONObject("FCTTIME").getString("epoch"));
+					forecast.setTemperature(textForecast.getJSONObject("temp").getString("english"));
+					forecast.setFeelsLike(textForecast.getJSONObject("feelslike").getString("english"));
+					
+					forecasts.add(forecast);
+		    	}
 		    	
-		    // Send request
-		    URL url = new URL("http://api.wunderground.com/api/2b2713188f60c01d/hourly/q/ME/Portland.xml");
-		    URLConnection conn = url.openConnection();
-		    conn.setDoOutput(true);
-		    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-		    wr.flush();
-		     
-		    // Parse the response
-		    InputSource inputSource = new InputSource();
-	        inputSource.setEncoding("UTF-8");
-	        inputSource.setCharacterStream(new InputStreamReader(conn.getInputStream()));
-	        xmlReader.parse(inputSource);
-	        
-	        forecasts = forecastHandler.getForecasts();
-	        
-		    wr.close();
+		    	forecastNumber++;
+			}
 		    
 		} catch (Exception e) {
 			System.out.println("Something bad happened");
@@ -58,4 +85,15 @@ public class UndergroundHourlyForecastService {
 
 	}
 	
+	private static class UndergroundHourlyForecast extends DefaultHourlyForecast {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void setDateTime(String dateTime) {
+			long dateTimeSeconds = Long.parseLong(dateTime);
+			this.dateTime = dateTimeSeconds * 1000L;
+		}
+
+	}
 }

@@ -1,6 +1,6 @@
 package com.weatherapp.util;
 
-public class ImageUtil {
+public class WeatherbugImageUtil {
 
 	private static final String WB_BASE_ICON_URL = "http://img.weather.weatherbug.com/forecast/icons/localized/";
 
@@ -14,4 +14,5 @@ public class ImageUtil {
 		return WB_BASE_ICON_URL + iconSize + "/en/" + (transparent?"trans":"opaq") + "/" + iconName + ".png";
 	}
 
+	
 }

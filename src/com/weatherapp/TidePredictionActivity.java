@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.weatherapp.model.TidePrediction;
 import com.weatherapp.service.AerisTideService;
-import com.weatherapp.service.valueobject.TidePrediction;
 
 public class TidePredictionActivity extends BaseActivity {
 
