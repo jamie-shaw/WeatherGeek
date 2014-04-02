@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import com.weatherapp.model.DailyForecast;
 import com.weatherapp.model.DefaultDailyForecast;
 import com.weatherapp.service.DailyForecastService;
-import com.weatherapp.service.ServiceFactory;
 
 public class WeatherbugDailyForecastService implements DailyForecastService {
 
@@ -59,7 +58,6 @@ public class WeatherbugDailyForecastService implements DailyForecastService {
 					forecast.setImageName(currentWbForecast.getDayIcon());
 					forecast.setLongPrediction(currentWbForecast.getDayPred());
 					forecast.setTemperature(currentWbForecast.getHigh());
-					forecast.setImageURL(ServiceFactory.getImageService().getIconUrl(currentWbForecast.getDayIcon()));
 					forecast.setLongDay(currentWbForecast.getDayTitle());
 					forecasts.add(forecast);
 				}
@@ -71,7 +69,6 @@ public class WeatherbugDailyForecastService implements DailyForecastService {
 					forecast.setImageName(currentWbForecast.getNightIcon());
 					forecast.setLongPrediction(currentWbForecast.getNightPred());
 					forecast.setTemperature(currentWbForecast.getLow());
-					forecast.setImageURL(ServiceFactory.getImageService().getIconUrl(currentWbForecast.getNightIcon()));
 					forecast.setLongDay(currentWbForecast.getNightTitle());
 					forecasts.add(forecast);
 				}

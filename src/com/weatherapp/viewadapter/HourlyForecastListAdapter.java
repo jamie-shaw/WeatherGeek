@@ -3,7 +3,6 @@ package com.weatherapp.viewadapter;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.TimeZone;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -48,7 +47,7 @@ public class HourlyForecastListAdapter extends ArrayAdapter<HourlyForecast>{
 		view.setText(dateFormat.format(forecast.getDateTime()));
         
     	ImageView imageView = (ImageView)convertView.findViewById(R.id.imageDay);
-		AsyncTask<ImageView, Void, Bitmap> task = new DownloadImageTask(forecast.getImageName(), forecast.getImageURL());
+		AsyncTask<ImageView, Void, Bitmap> task = new DownloadImageTask(forecast.getImageName());
 		task.execute(imageView);
     	
         view = (TextView)convertView.findViewById(R.id.textViewTemp); 

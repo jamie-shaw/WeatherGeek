@@ -1,8 +1,10 @@
 package com.weatherapp.service.weatherbug;
 
-import com.weatherapp.service.ImageService;
+import android.graphics.Bitmap;
 
-public class WeatherbugImageService implements ImageService {
+import com.weatherapp.BaseImageService;
+
+public class WeatherbugImageService extends BaseImageService {
 
 	private static final String WB_BASE_ICON_URL = "http://img.weather.weatherbug.com/forecast/icons/localized/";
 
@@ -11,10 +13,10 @@ public class WeatherbugImageService implements ImageService {
 	public String getIconUrl(String iconName) {
 		return WB_BASE_ICON_URL + WB_ICON_SIZE_60X50 + "/en/trans/" + iconName + ".png";
 	}
-	
-	public String getIconUrl(String iconName, String iconSize, boolean transparent) {
-		return WB_BASE_ICON_URL + iconSize + "/en/" + (transparent?"trans":"opaq") + "/" + iconName + ".png";
-	}
 
+	@Override
+	public Bitmap getImage(String iconName) {
+		return getWebImage(iconName);
+	}
 	
 }

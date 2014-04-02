@@ -17,7 +17,6 @@ import android.location.Location;
 import com.weatherapp.model.DailyForecast;
 import com.weatherapp.model.DefaultDailyForecast;
 import com.weatherapp.service.DailyForecastService;
-import com.weatherapp.service.ServiceFactory;
 
 public class UndergroundDailyForecastService implements DailyForecastService {
 
@@ -81,8 +80,6 @@ public class UndergroundDailyForecastService implements DailyForecastService {
 					forecast.setImageName("nt_" + textForecast.getString("icon"));
 					forecast.setTemperature(simpleForecastList.getJSONObject(j).getJSONObject("low").getString("fahrenheit"));		
 				}
-				
-				forecast.setImageURL(ServiceFactory.getImageService().getIconUrl(forecast.getImageName()));
 				
 				forecasts.add(forecast);
 			}

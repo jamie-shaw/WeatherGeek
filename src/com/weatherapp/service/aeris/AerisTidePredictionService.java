@@ -19,12 +19,14 @@ import android.location.Location;
 
 import com.google.gson.Gson;
 import com.weatherapp.model.TidePrediction;
+import com.weatherapp.service.TidePredictionService;
 
-public class AerisTideService {
+public class AerisTidePredictionService implements TidePredictionService {
 
     private static final DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
 
-	public static List<TidePrediction> getTidePredictions(Location location) {
+	@Override
+	public List<TidePrediction> getTidePredictions(Location location) {
 
 		List<TidePrediction> predictions = new ArrayList<TidePrediction>();
 

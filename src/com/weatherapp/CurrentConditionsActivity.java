@@ -1,7 +1,6 @@
 package com.weatherapp;
 
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -11,11 +10,12 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.weatherapp.model.Observation;
-import com.weatherapp.service.weatherbug.WeatherbugCurrentConditionsService;
+import com.weatherapp.service.ServiceFactory;
 import com.weatherapp.task.DownloadImageTask;
 
 public class CurrentConditionsActivity extends BaseActivity {
@@ -26,10 +26,8 @@ public class CurrentConditionsActivity extends BaseActivity {
 	public CurrentConditionsActivity() {
 		super();
 		timeFormat = new SimpleDateFormat("h:mm a");
-		timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
 		dateFormat = new SimpleDateFormat("EEEE, MMMMM d");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 	}
 
 	/** Called when the activity is first created. */
@@ -54,7 +52,6 @@ public class CurrentConditionsActivity extends BaseActivity {
 		task.execute();
 		
 	}
-
 	
 	private class ProgressTask extends AsyncTask<String, Void, Observation> {
 
@@ -79,7 +76,7 @@ public class CurrentConditionsActivity extends BaseActivity {
 	        }
 
 	    	ImageView imageView = (ImageView) activity.findViewById(R.id.imgCurrentConditions);
-			AsyncTask<ImageView, Void, Bitmap> task = new DownloadImageTask(observation.getImageName(), observation.getImageURL());
+			AsyncTask<ImageView, Void, Bitmap> task = new DownloadImageTask(observation.getImageName());
 			task.execute(imageView);
 				
 			TextView view = (TextView) activity.findViewById(R.id.textViewDate);
@@ -109,21 +106,26 @@ public class CurrentConditionsActivity extends BaseActivity {
 			view = (TextView) activity.findViewById(R.id.textViewWindChill);
 			view.setText(observation.getWindChill() + '\u00B0' + "F");
 			
-			view = (TextView) activity.findViewById(R.id.textViewSunrise);
-			view.setText(timeFormat.format(observation.getSunrise()));
+			if (observation.getSunrise() != null) {
+				view = (TextView) activity.findViewById(R.id.textViewSunrise);
+				view.setText(timeFormat.format(observation.getSunrise()));
+			}
 			
-			view = (TextView) activity.findViewById(R.id.textViewSunset);
-			view.setText(timeFormat.format(observation.getSunset()));
-	    
+			if (observation.getSunset() != null) {
+				view = (TextView) activity.findViewById(R.id.textViewSunset);
+				view.setText(timeFormat.format(observation.getSunset()));
+			}
+			
 	    }
 
 	    protected Observation doInBackground(final String... args) {
 
-	    	System.out.println("loading current conditions");
+	    	Log.d("WeatherGeek", "loading current conditions");
+	    	
 	    	LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-			return WeatherbugCurrentConditionsService.getCurrentConditionsByLocation(location);
+			return ServiceFactory.getCurrentConditionsService().getCurrentConditionsByLocation(location);
 
 	    }
 	}

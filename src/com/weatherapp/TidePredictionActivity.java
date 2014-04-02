@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.weatherapp.model.TidePrediction;
-import com.weatherapp.service.aeris.AerisTideService;
+import com.weatherapp.service.ServiceFactory;
 
 public class TidePredictionActivity extends BaseActivity {
 
@@ -137,7 +137,7 @@ public class TidePredictionActivity extends BaseActivity {
 			location.setLatitude(Location.convert(lat));
 			location.setLongitude(Location.convert(lon));
 			
-			return AerisTideService.getTidePredictions(location);
+			return ServiceFactory.getTidePredictionService().getTidePredictions(location);
 
 	    }
 	}

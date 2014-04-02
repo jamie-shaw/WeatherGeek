@@ -1,8 +1,10 @@
 package com.weatherapp.service.underground;
 
-import com.weatherapp.service.ImageService;
+import android.graphics.Bitmap;
 
-public class UndergroundImageService implements ImageService {
+import com.weatherapp.BaseImageService;
+
+public class UndergroundImageService extends BaseImageService {
 
 	private static final String BASE_ICON_URL = "http://icons.wxug.com/i/c/k/";
 	
@@ -11,8 +13,8 @@ public class UndergroundImageService implements ImageService {
 	}
 
 	@Override
-	public String getIconUrl(String icon, String dimensions, boolean transparent) {
-		return null;
+	public Bitmap getImage(String iconName) {
+		return getWebImage(iconName);
 	}
 	
 }

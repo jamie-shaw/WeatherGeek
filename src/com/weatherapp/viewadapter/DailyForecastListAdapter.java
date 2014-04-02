@@ -52,7 +52,7 @@ public class DailyForecastListAdapter extends ArrayAdapter<DailyForecast> {
 		}
         
     	ImageView imageView = (ImageView)convertView.findViewById(R.id.imageDay);
-		AsyncTask<ImageView, Void, Bitmap> task = new DownloadImageTask(forecast.getImageName(), forecast.getImageURL());
+		AsyncTask<ImageView, Void, Bitmap> task = new DownloadImageTask(forecast.getImageName());
 		task.execute(imageView);
 
         view = (TextView)convertView.findViewById(R.id.textViewHiTempDay); 

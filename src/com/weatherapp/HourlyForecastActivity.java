@@ -22,7 +22,7 @@ import com.weatherapp.viewadapter.HourlyForecastListAdapter;
 public class HourlyForecastActivity extends BaseActivity {
 
 	private List<HourlyForecast> forecasts;
-	private long nextLoadHour;
+	private int nextLoadHour;
 
 	/** Called when the activity is first created. */
 	@SuppressWarnings("unchecked")
@@ -33,7 +33,7 @@ public class HourlyForecastActivity extends BaseActivity {
 		if (savedInstanceState != null) {
 			Log.d("WeatherGeek", "restoring hourly forecasts");
 			forecasts = (List<HourlyForecast>)savedInstanceState.getSerializable("forecasts");
-			nextLoadHour = savedInstanceState.getLong("nextLoadHour");;
+			nextLoadHour = savedInstanceState.getInt("nextLoadHour");;
 		} else {
 			Log.d("WeatherGeek", "creating hourly forecasts");
 		}
@@ -53,7 +53,7 @@ public class HourlyForecastActivity extends BaseActivity {
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 	  savedInstanceState.putSerializable("forecasts", (Serializable) forecasts);
-	  savedInstanceState.putLong("nextLoadHour", nextLoadHour);
+	  savedInstanceState.putInt("nextLoadHour", nextLoadHour);
 	  super.onSaveInstanceState(savedInstanceState);
 	}
 

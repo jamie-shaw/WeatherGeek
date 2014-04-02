@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.weatherapp.model.DailyForecast;
@@ -21,7 +22,7 @@ import com.weatherapp.viewadapter.DailyForecastListAdapter;
 public class DailyForecastActivity extends BaseActivity {
 
 	private List<DailyForecast> forecasts;
-	private int nextLoadHour;
+	private int nextLoadHour = 0;
 	
 	/** Called when the activity is first created. */
 	@SuppressWarnings("unchecked")
@@ -32,11 +33,11 @@ public class DailyForecastActivity extends BaseActivity {
 		setContentView(R.layout.daily_forecast);
 
 		if (savedInstanceState != null) {
-			System.out.println("restoring daily forecasts");
+			Log.d("WeatherGeek", "restoring daily forecasts");
 			forecasts = (List<DailyForecast>)savedInstanceState.getSerializable("forecasts");
 			nextLoadHour = savedInstanceState.getInt("nextLoadHour");
 		} else {
-			System.out.println("creating daily forecasts");
+			Log.d("WeatherGeek", "creating daily forecasts");
 		}
 		
 		buildContent();
@@ -47,7 +48,7 @@ public class DailyForecastActivity extends BaseActivity {
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 	  savedInstanceState.putSerializable("forecasts", (Serializable) forecasts);
-	  savedInstanceState.putLong("nextLoadHour", nextLoadHour);
+	  savedInstanceState.putInt("nextLoadHour", nextLoadHour);
 	  super.onSaveInstanceState(savedInstanceState);
 	}
 	

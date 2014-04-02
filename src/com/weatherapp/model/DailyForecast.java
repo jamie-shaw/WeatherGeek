@@ -22,13 +22,9 @@ public interface DailyForecast {
 
 	public abstract void setTemperature(String temperature);
 
-	public abstract String getImageURL();
-
 	public abstract String getImageName();
 
 	public abstract void setImageName(String imageName);
-
-	public abstract void setImageURL(String imageURL);
 
 	public abstract boolean isNight();
 

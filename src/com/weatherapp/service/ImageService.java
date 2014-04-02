@@ -1,9 +1,11 @@
 package com.weatherapp.service;
 
+import android.graphics.Bitmap;
+
 public interface ImageService {
 
 	public String getIconUrl(String iconName);
-	
-	public String getIconUrl(String icon, String dimensions, boolean transparent);
+
+	public Bitmap getImage(String iconName);
 	
 }

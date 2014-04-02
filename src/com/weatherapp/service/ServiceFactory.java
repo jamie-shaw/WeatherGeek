@@ -1,8 +1,11 @@
 package com.weatherapp.service;
 
+import com.weatherapp.service.aeris.AerisTidePredictionService;
+import com.weatherapp.service.underground.UndergroundCurrentConditionsService;
 import com.weatherapp.service.underground.UndergroundDailyForecastService;
 import com.weatherapp.service.underground.UndergroundHourlyForecastService;
 import com.weatherapp.service.underground.UndergroundImageService;
+import com.weatherapp.service.weatherbug.WeatherbugCurrentConditionsService;
 import com.weatherapp.service.weatherbug.WeatherbugDailyForecastService;
 import com.weatherapp.service.weatherbug.WeatherbugHourlyForecastService;
 import com.weatherapp.service.weatherbug.WeatherbugImageService;
@@ -40,6 +43,19 @@ public class ServiceFactory {
 		}
 	}
 
+
+	public static CurrentConditionsService getCurrentConditionsService() {
+		
+		switch (currentServiceProvider) {
+			case WEATHERBUG:
+				return new WeatherbugCurrentConditionsService();
+	
+			case UNDERGROUND:
+			default:
+				return new UndergroundCurrentConditionsService();
+		}
+	}
+	
 	public static ImageService getImageService() {
 		switch (currentServiceProvider) {
 			case WEATHERBUG:
@@ -51,4 +67,7 @@ public class ServiceFactory {
 		}
 	}
 
+	public static TidePredictionService getTidePredictionService() {
+		return new AerisTidePredictionService();
+	}
 }

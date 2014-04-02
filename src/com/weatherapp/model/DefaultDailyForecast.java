@@ -6,14 +6,14 @@ public class DefaultDailyForecast implements Serializable, DailyForecast {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String longDay;
-	private String shortDay;
-	private String shortPrediction;
-	private String longPrediction;
-	private String temperature;
-	private String imageName;
-	private String imageURL;
-	private boolean isNight;
+	protected String longDay;
+	protected String shortDay;
+	protected String shortPrediction;
+	protected String longPrediction;
+	protected String temperature;
+	protected String imageName;
+	protected String imageURL;
+	protected boolean isNight;
 	
 	@Override
 	public String getLongDay() {
@@ -66,11 +66,6 @@ public class DefaultDailyForecast implements Serializable, DailyForecast {
 	}
 
 	@Override
-	public String getImageURL() {
-		return imageURL;
-	}
-
-	@Override
 	public String getImageName() {
 		return imageName;
 	}
@@ -78,11 +73,6 @@ public class DefaultDailyForecast implements Serializable, DailyForecast {
 	@Override
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
-	}
-
-	@Override
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
 	}
 
 	@Override
