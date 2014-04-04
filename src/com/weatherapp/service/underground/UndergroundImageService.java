@@ -1,8 +1,9 @@
 package com.weatherapp.service.underground;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 
-import com.weatherapp.BaseImageService;
+import com.weatherapp.service.BaseImageService;
 
 public class UndergroundImageService extends BaseImageService {
 
@@ -13,7 +14,8 @@ public class UndergroundImageService extends BaseImageService {
 	}
 
 	@Override
-	public Bitmap getImage(String iconName) {
+	public Bitmap getImage(Resources resources, String iconName) {
+		//return getLocalImage(resources, iconName);
 		return getWebImage(iconName);
 	}
 	

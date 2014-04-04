@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.weatherapp.model.Observation;
 import com.weatherapp.service.ServiceFactory;
-import com.weatherapp.task.DownloadImageTask;
+import com.weatherapp.task.RetrieveImageTask;
 
 public class CurrentConditionsActivity extends BaseActivity {
 
@@ -76,7 +76,7 @@ public class CurrentConditionsActivity extends BaseActivity {
 	        }
 
 	    	ImageView imageView = (ImageView) activity.findViewById(R.id.imgCurrentConditions);
-			AsyncTask<ImageView, Void, Bitmap> task = new DownloadImageTask(observation.getImageName());
+			AsyncTask<ImageView, Void, Bitmap> task = new RetrieveImageTask(getResources(), observation.getImageName());
 			task.execute(imageView);
 				
 			TextView view = (TextView) activity.findViewById(R.id.textViewDate);

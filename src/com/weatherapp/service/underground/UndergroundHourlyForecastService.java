@@ -38,7 +38,7 @@ public class UndergroundHourlyForecastService implements HourlyForecastService {
 		try {
 			// Send request
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			URI uri = new URI("http://api.wunderground.com/api/2b2713188f60c01d/hourly/q/" + criteria + ".json");
+			URI uri = new URI("http://api.wunderground.com/api/2b2713188f60c01d/hourly/astronomy/q/" + criteria + ".json");
 
 			HttpGet method = new HttpGet(uri);
 			HttpResponse response = httpClient.execute(method);
@@ -53,23 +53,34 @@ public class UndergroundHourlyForecastService implements HourlyForecastService {
 		    }
 		    
 		    JSONObject base = new JSONObject(responseStrBuilder.toString());
-		    JSONArray jsonForecastList = base.getJSONArray("hourly_forecast"); 
+
+		    JSONObject astronomy = base.getJSONObject("moon_phase"); 
+		    int sunriseHour = astronomy.getJSONObject("sunrise").getInt("hour");
+		    int sunsetHour = astronomy.getJSONObject("sunset").getInt("hour");
 		    
-			// Build the forecast list
-		    int forecastNumber = 0;
+		    // Build the forecast list
+		    JSONArray jsonForecastList = base.getJSONArray("hourly_forecast"); 
+    		int forecastNumber = 0;
 			
 			while (forecastNumber <= PERIODS) {
 				
 		    	if (forecastNumber == 0 || forecastNumber % INTERVAL == 0) { 
 		    		
 			    	JSONObject textForecast = jsonForecastList.getJSONObject(forecastNumber);
-					UndergroundHourlyForecast forecast = new UndergroundHourlyForecast();
+			    	UndergroundHourlyForecast forecast = new UndergroundHourlyForecast();
 					
 					forecast.setDesc(textForecast.getString("condition"));
-					forecast.setIcon(textForecast.getString("icon"));
 					forecast.setDateTime(textForecast.getJSONObject("FCTTIME").getString("epoch"));
 					forecast.setTemperature(textForecast.getJSONObject("temp").getString("english"));
 					forecast.setFeelsLike(textForecast.getJSONObject("feelslike").getString("english"));
+
+					int forecastHour = textForecast.getJSONObject("FCTTIME").getInt("hour");
+					
+					if (forecastHour > sunriseHour && forecastHour < sunsetHour) {
+						forecast.setIcon(textForecast.getString("icon"));
+					} else {
+						forecast.setIcon("nt_" + textForecast.getString("icon"));
+					}
 					
 					forecasts.add(forecast);
 		    	}

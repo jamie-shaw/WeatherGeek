@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.weatherapp.R;
 import com.weatherapp.model.DailyForecast;
-import com.weatherapp.task.DownloadImageTask;
+import com.weatherapp.task.RetrieveImageTask;
 
 public class DailyForecastListAdapter extends ArrayAdapter<DailyForecast> {
 
@@ -52,7 +52,7 @@ public class DailyForecastListAdapter extends ArrayAdapter<DailyForecast> {
 		}
         
     	ImageView imageView = (ImageView)convertView.findViewById(R.id.imageDay);
-		AsyncTask<ImageView, Void, Bitmap> task = new DownloadImageTask(forecast.getImageName());
+		AsyncTask<ImageView, Void, Bitmap> task = new RetrieveImageTask(getContext().getResources(), forecast.getImageName());
 		task.execute(imageView);
 
         view = (TextView)convertView.findViewById(R.id.textViewHiTempDay); 

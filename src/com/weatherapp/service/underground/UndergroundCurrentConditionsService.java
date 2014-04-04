@@ -53,16 +53,13 @@ public class UndergroundCurrentConditionsService implements
 		try {
 			// Send request
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			URI uri = new URI(
-					"http://api.wunderground.com/api/2b2713188f60c01d/conditions/astronomy/q/"
-							+ criteria + ".json");
+			URI uri = new URI("http://api.wunderground.com/api/2b2713188f60c01d/conditions/astronomy/q/" + criteria + ".json");
 
 			HttpGet method = new HttpGet(uri);
 			HttpResponse response = httpClient.execute(method);
 
 			// Parse the response
-			BufferedReader streamReader = new BufferedReader(
-					new InputStreamReader(response.getEntity().getContent()));
+			BufferedReader streamReader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			StringBuilder responseStrBuilder = new StringBuilder();
 
 			String inputStr;
@@ -71,8 +68,7 @@ public class UndergroundCurrentConditionsService implements
 			}
 
 			JSONObject base = new JSONObject(responseStrBuilder.toString());
-			JSONObject jsonObservation = base
-					.getJSONObject("current_observation");
+			JSONObject jsonObservation = base.getJSONObject("current_observation");
 
 			// Build the observation
 			observation = new UndergroundObservation();
@@ -91,7 +87,6 @@ public class UndergroundCurrentConditionsService implements
 			JSONObject jsonSunPhase = base.getJSONObject("sun_phase");
 			JSONObject jsonSunrise = jsonSunPhase.getJSONObject("sunrise");
 			JSONObject jsonSunset = jsonSunPhase.getJSONObject("sunset");
-
 		
 			observation.setSunriseDateTime(jsonSunrise.getString("hour") + ":" + jsonSunrise.getString("minute"));
 			observation.setSunsetDateTime(jsonSunset.getString("hour") + ":"+ jsonSunset.getString("minute"));

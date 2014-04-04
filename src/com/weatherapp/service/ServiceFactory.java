@@ -12,7 +12,7 @@ import com.weatherapp.service.weatherbug.WeatherbugImageService;
 
 public class ServiceFactory {
 
-	private static ServiceProvider currentServiceProvider = ServiceProvider.WEATHERBUG;
+	private static ServiceProvider currentServiceProvider = ServiceProvider.UNDERGROUND;
 	
 	private enum ServiceProvider {
 		WEATHERBUG, UNDERGROUND, AERIS;

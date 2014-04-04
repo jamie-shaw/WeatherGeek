@@ -1,4 +1,4 @@
-package com.weatherapp;
+package com.weatherapp.service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import com.weatherapp.service.ImageService;
+import com.weatherapp.R;
 import com.weatherapp.util.ImageCache;
 
 public abstract class BaseImageService implements ImageService {
@@ -21,12 +21,11 @@ public abstract class BaseImageService implements ImageService {
 		
 		if (bitmap == null) {
 			String url = getIconUrl(imageName);
-			
+			Log.d("Weathergeek", url);
 			try {
 				Log.d("BaseImageService", "fetching " + url);
 				// pull the image down from the web
-				bitmap = BitmapFactory.decodeStream((InputStream) new URL(url)
-						.getContent());
+				bitmap = BitmapFactory.decodeStream((InputStream) new URL(url).getContent());
 
 				// save for later
 				if (bitmap != null) {
@@ -50,7 +49,7 @@ public abstract class BaseImageService implements ImageService {
 		if (bitmap == null) {
 			Log.d("BaseImageService", "fetching " + name);
 			// pull the image down from the web
-			bitmap = BitmapFactory.decodeResource(resources, R.drawable.weathergeek);
+			bitmap = BitmapFactory.decodeResource(resources, R.drawable.weathergeek4);
 
 			// save for later
 			if (name != null) {
