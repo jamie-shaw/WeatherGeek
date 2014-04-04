@@ -54,9 +54,9 @@ public class UndergroundHourlyForecastService implements HourlyForecastService {
 		    
 		    JSONObject base = new JSONObject(responseStrBuilder.toString());
 
-		    JSONObject astronomy = base.getJSONObject("moon_phase"); 
-		    int sunriseHour = astronomy.getJSONObject("sunrise").getInt("hour");
-		    int sunsetHour = astronomy.getJSONObject("sunset").getInt("hour");
+		    JSONObject sunPhase = base.getJSONObject("sun_phase"); 
+		    int sunriseHour = sunPhase.getJSONObject("sunrise").getInt("hour");
+		    int sunsetHour = sunPhase.getJSONObject("sunset").getInt("hour");
 		    
 		    // Build the forecast list
 		    JSONArray jsonForecastList = base.getJSONArray("hourly_forecast"); 
