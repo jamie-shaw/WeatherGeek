@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 
 import com.weatherapp.service.ServiceFactory;
 import com.weatherapp.service.ServiceFactory.ServiceProvider;
+import com.weatherapp.util.Preferences;
 
 public abstract class BaseActivity extends Activity {
 	
@@ -24,11 +25,6 @@ public abstract class BaseActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
-
-		Intent prefsIntent = new Intent(this.getApplicationContext(), PreferencesActivity.class);
-
-		MenuItem preferences = menu.findItem(R.id.menu_item_refresh);
-		preferences.setIntent(prefsIntent);
 
 		return true;
 	}
@@ -40,75 +36,77 @@ public abstract class BaseActivity extends Activity {
 		super.onMenuItemSelected(featureId, item);
 		
 		switch (item.getItemId()) {
-		case (R.id.menu_item_weather_provider):
-			AlertDialog.Builder builder;
-			final AlertDialog dialog;
-
-			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			final View layout = inflater.inflate(R.layout.weather_provider_dialog, (RadioGroup) findViewById(R.id.providerRadioGroup));
-
-			builder = new AlertDialog.Builder(this);
-			builder.setView(layout);
-
-			dialog = builder.create();
-			dialog.setCancelable(true);
-			dialog.setTitle("Select Weather Provider");
-			dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-
-			// restore selected value
-			ServiceProvider currentWeatherProvider = ServiceFactory.getWeatherServiceProvider();
-			final int checkedButton;
-			
-			switch(currentWeatherProvider) {
-				case WEATHERBUG:
-					checkedButton = R.id.weatherbugButton;
-					break;
-				case UNDERGROUND:
-				default:
-					checkedButton = R.id.undergroundButton;
-			}
-			
-			((RadioButton)layout.findViewById(checkedButton)).setChecked(true);
-			
-			dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					
-					RadioGroup g = (RadioGroup) layout; 
-					int selected = g.getCheckedRadioButtonId();
-
-					if (selected != checkedButton) {
-						switch(selected) {
-							case R.id.weatherbugButton:
-								ServiceFactory.setWeatherServiceProvider(ServiceProvider.WEATHERBUG);
-								break;
-							case R.id.undergroundButton:
-							default:
-								ServiceFactory.setWeatherServiceProvider(ServiceProvider.UNDERGROUND);
-						}
-						buildContent();
-					}
-					dialog.dismiss();
-
+			case (R.id.menu_item_weather_provider):
+				AlertDialog.Builder builder;
+				final AlertDialog dialog;
+	
+				LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				final View layout = inflater.inflate(R.layout.weather_provider_dialog, (RadioGroup) findViewById(R.id.providerRadioGroup));
+	
+				builder = new AlertDialog.Builder(this);
+				builder.setView(layout);
+	
+				dialog = builder.create();
+				dialog.setCancelable(true);
+				dialog.setTitle("Select Weather Provider");
+				dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+	
+				// restore selected value
+				ServiceProvider currentWeatherProvider = ServiceFactory.getWeatherServiceProvider();
+				final int checkedButton;
+				
+				switch(currentWeatherProvider) {
+					case WEATHERBUG:
+						checkedButton = R.id.weatherbugButton;
+						break;
+					case UNDERGROUND:
+					default:
+						checkedButton = R.id.undergroundButton;
 				}
 				
-			});
-
-			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-				}
-			});
-
-			dialog.show();
-
-			break;
-			
-		case (R.id.menu_item_refresh):
-			System.out.println("Refreshing");
-			buildContent();
-			break;
-			
-		default:
-			break;
+				((RadioButton)layout.findViewById(checkedButton)).setChecked(true);
+				
+				dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						
+						RadioGroup g = (RadioGroup) layout; 
+						int selected = g.getCheckedRadioButtonId();
+	
+						if (selected != checkedButton) {
+							switch(selected) {
+								case R.id.weatherbugButton:
+									ServiceFactory.setWeatherServiceProvider(ServiceProvider.WEATHERBUG);
+									Preferences.setWeatherProvider(getApplicationContext(), ServiceProvider.WEATHERBUG);
+									break;
+								case R.id.undergroundButton:
+								default:
+									ServiceFactory.setWeatherServiceProvider(ServiceProvider.UNDERGROUND);
+									Preferences.setWeatherProvider(getApplicationContext(), ServiceProvider.UNDERGROUND);
+							}
+							buildContent();
+						}
+						dialog.dismiss();
+	
+					}
+					
+				});
+	
+				dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+	
+				dialog.show();
+	
+				break;
+				
+			case (R.id.menu_item_refresh):
+				System.out.println("Refreshing");
+				buildContent();
+				break;
+				
+			default:
+				break;
 		}
 
 		return true;

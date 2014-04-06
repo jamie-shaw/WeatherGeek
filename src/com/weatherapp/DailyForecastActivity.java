@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.weatherapp.model.DailyForecast;
 import com.weatherapp.service.DailyForecastService;
 import com.weatherapp.service.ServiceFactory;
+import com.weatherapp.util.Preferences;
 import com.weatherapp.viewadapter.DailyForecastListAdapter;
 
 public class DailyForecastActivity extends BaseActivity {
@@ -37,6 +38,8 @@ public class DailyForecastActivity extends BaseActivity {
 		} else {
 			Log.d("WeatherGeek", "creating daily forecasts");
 		}
+		
+		ServiceFactory.setWeatherServiceProvider(Preferences.getWeatherProvider(getApplicationContext()));
 		
 		buildContent();
 		
