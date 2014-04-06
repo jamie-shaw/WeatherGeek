@@ -1,6 +1,7 @@
 package com.weatherapp;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -25,9 +26,9 @@ public class CurrentConditionsActivity extends BaseActivity {
     
 	public CurrentConditionsActivity() {
 		super();
-		timeFormat = new SimpleDateFormat("h:mm a");
+		timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
 		
-		dateFormat = new SimpleDateFormat("EEEE, MMMMM d");
+		dateFormat = new SimpleDateFormat("EEEE, MMMMM d", Locale.getDefault());
 	}
 
 	/** Called when the activity is first created. */
@@ -35,13 +36,7 @@ public class CurrentConditionsActivity extends BaseActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.current_conditions);
-
-		long startTime = System.currentTimeMillis();
-
 		buildContent();
-
-		System.out.println("Total time = " + (System.currentTimeMillis() - startTime));
-
 		configureToolbar();
 	}
 	
@@ -95,7 +90,7 @@ public class CurrentConditionsActivity extends BaseActivity {
 			view.setText(observation.getCurrentTemp() + '\u00B0' + "F");
 
 			view = (TextView) activity.findViewById(R.id.textViewHumidity);
-			view.setText(observation.getHumidity() + "%");
+			view.setText(observation.getHumidity());
 
 			view = (TextView) activity.findViewById(R.id.textViewHiTemp);
 			view.setText(observation.getHiTemp() + '\u00B0' + "F");

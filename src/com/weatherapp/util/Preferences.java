@@ -21,4 +21,16 @@ public class Preferences {
 		prefsEditor.putString(context.getString(R.string.pref_key_zip_code), newValue);
 		prefsEditor.commit();
 	}
+	
+	public static String getWeatherProvider(Context context) {
+		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+		return prefs.getString(context.getString(R.string.pref_key_weather_provider), "underground");
+	}
+
+	public static void setWeatherProvider(Context context, String newValue) {
+		SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, 0);
+		Editor prefsEditor = prefs.edit();
+		prefsEditor.putString(context.getString(R.string.pref_key_weather_provider), newValue);
+		prefsEditor.commit();
+	}
 }

@@ -10,6 +10,9 @@
     <string name="lo_temp_label">Low Temp</string>
     <string name="wind_chill_label">Wind Chill</string>
     <string name="pref_key_zip_code">zip_code</string>
+    <string name="pref_key_weather_provider">weather_provider</string>
+    <string name="weatherbug">Weatherbug</string>
+    <string name="underground">Weather Underground</string>
     <string name="sunrise_label">Sunrise</string>
     <string name="sunset_label">Sunset</string>
     <string name="current_conditions_icon_label">Current Conditions Weather Icon</string>

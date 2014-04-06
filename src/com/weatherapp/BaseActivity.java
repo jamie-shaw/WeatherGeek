@@ -10,12 +10,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
-import com.weatherapp.util.Preferences;
+import com.weatherapp.service.ServiceFactory;
+import com.weatherapp.service.ServiceFactory.ServiceProvider;
 
 public abstract class BaseActivity extends Activity {
 	
@@ -39,32 +40,57 @@ public abstract class BaseActivity extends Activity {
 		super.onMenuItemSelected(featureId, item);
 		
 		switch (item.getItemId()) {
-		case (R.id.menu_item_mylocation):
+		case (R.id.menu_item_weather_provider):
 			AlertDialog.Builder builder;
 			final AlertDialog dialog;
 
 			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			final View layout = inflater.inflate(R.layout.zip_code_dialog, (ViewGroup) findViewById(R.id.dialog_root));
+			final View layout = inflater.inflate(R.layout.weather_provider_dialog, (RadioGroup) findViewById(R.id.providerRadioGroup));
 
 			builder = new AlertDialog.Builder(this);
 			builder.setView(layout);
 
 			dialog = builder.create();
 			dialog.setCancelable(true);
-			dialog.setTitle("Zip Code");
+			dialog.setTitle("Select Weather Provider");
 			dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-			
-			final Context context = getApplicationContext();
-			String zipCode = Preferences.getZipCode(context);
-			EditText editTextZipCode = (EditText) layout.findViewById(R.id.editTextZipcode);
-			editTextZipCode.setText(zipCode);
 
+			// restore selected value
+			ServiceProvider currentWeatherProvider = ServiceFactory.getWeatherServiceProvider();
+			final int checkedButton;
+			
+			switch(currentWeatherProvider) {
+				case WEATHERBUG:
+					checkedButton = R.id.weatherbugButton;
+					break;
+				case UNDERGROUND:
+				default:
+					checkedButton = R.id.undergroundButton;
+			}
+			
+			((RadioButton)layout.findViewById(checkedButton)).setChecked(true);
+			
 			dialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					EditText editTextZipCode = (EditText) layout.findViewById(R.id.editTextZipcode);
-					Preferences.setZipCode(context, editTextZipCode.getText().toString());
+					
+					RadioGroup g = (RadioGroup) layout; 
+					int selected = g.getCheckedRadioButtonId();
+
+					if (selected != checkedButton) {
+						switch(selected) {
+							case R.id.weatherbugButton:
+								ServiceFactory.setWeatherServiceProvider(ServiceProvider.WEATHERBUG);
+								break;
+							case R.id.undergroundButton:
+							default:
+								ServiceFactory.setWeatherServiceProvider(ServiceProvider.UNDERGROUND);
+						}
+						buildContent();
+					}
 					dialog.dismiss();
+
 				}
+				
 			});
 
 			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
@@ -134,23 +160,17 @@ public abstract class BaseActivity extends Activity {
 	
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
-		//System.out.println("paused " + this.getClass().getName());
 	}
 	
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
-		//System.out.println("resumed " + this.getClass().getName());
 	}
 	
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
-		//System.out.println("destroyed " + this.getClass().getName());
 	}
 }
 

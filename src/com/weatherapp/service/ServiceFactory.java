@@ -12,15 +12,23 @@ import com.weatherapp.service.weatherbug.WeatherbugImageService;
 
 public class ServiceFactory {
 
-	private static ServiceProvider currentServiceProvider = ServiceProvider.UNDERGROUND;
+	private static ServiceProvider currentWeatherServiceProvider = ServiceProvider.UNDERGROUND;
 	
-	private enum ServiceProvider {
+	public enum ServiceProvider {
 		WEATHERBUG, UNDERGROUND, AERIS;
 	}
 
+	public static void setWeatherServiceProvider(ServiceProvider newProvider) {
+		currentWeatherServiceProvider = newProvider;
+	}
+	
+	public static ServiceProvider getWeatherServiceProvider() {
+		return currentWeatherServiceProvider;
+	}
+	
 	public static DailyForecastService getDailyForecastService() {
 
-		switch (currentServiceProvider) {
+		switch (currentWeatherServiceProvider) {
 			case WEATHERBUG:
 				return new WeatherbugDailyForecastService();
 	
@@ -33,7 +41,7 @@ public class ServiceFactory {
 
 	public static HourlyForecastService getHourlyForecastService() {
 		
-		switch (currentServiceProvider) {
+		switch (currentWeatherServiceProvider) {
 			case WEATHERBUG:
 				return new WeatherbugHourlyForecastService();
 	
@@ -46,7 +54,7 @@ public class ServiceFactory {
 
 	public static CurrentConditionsService getCurrentConditionsService() {
 		
-		switch (currentServiceProvider) {
+		switch (currentWeatherServiceProvider) {
 			case WEATHERBUG:
 				return new WeatherbugCurrentConditionsService();
 	
@@ -57,7 +65,7 @@ public class ServiceFactory {
 	}
 	
 	public static ImageService getImageService() {
-		switch (currentServiceProvider) {
+		switch (currentWeatherServiceProvider) {
 			case WEATHERBUG:
 				return new WeatherbugImageService();
 	

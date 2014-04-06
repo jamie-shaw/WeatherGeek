@@ -1,7 +1,6 @@
 package com.weatherapp;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
@@ -62,19 +61,14 @@ public class HourlyForecastActivity extends BaseActivity {
 
 	    private ProgressDialog dialog;
 	    private Activity activity;
-	    private boolean needToLoad;
 	    
 	    public ProgressTask(Activity activity) {
 	        this.activity = activity;
 	        dialog = new ProgressDialog(activity);
-			needToLoad = (forecasts == null || Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > nextLoadHour); 
 	    }
 
 	    protected void onPreExecute() {
-	    	if (needToLoad) {
 		        this.dialog.setMessage("Getting forecast...");
-		        this.dialog.show();
-	    	}
 	    }
 
 	    @Override
@@ -91,17 +85,14 @@ public class HourlyForecastActivity extends BaseActivity {
 
 	    protected List<HourlyForecast> doInBackground(final String... args) {
 
-	    	if (needToLoad) {
-	    		Log.d("WeatherGeek", "loading hourly forecasts");
+    		Log.d("WeatherGeek", "loading hourly forecasts");
+			
+		    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			
+			HourlyForecastService forecastService = ServiceFactory.getHourlyForecastService();
+			forecasts = forecastService.getForecastByLocation(location);
 				
-			    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-				Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-				
-				HourlyForecastService forecastService = ServiceFactory.getHourlyForecastService();
-				forecasts = forecastService.getForecastByLocation(location);
-				
-				nextLoadHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-			}
 			return forecasts;
 	    }
 	}

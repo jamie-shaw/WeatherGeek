@@ -34,7 +34,8 @@ public class DefaultObservation implements Observation, Serializable {
 
 	@Override
 	public Date getObservationDate() {
-		return new Date(Long.valueOf(dateTime));
+		Date observationDate = new Date(Long.valueOf(dateTime));
+		return observationDate;
 	}
 
 	@Override

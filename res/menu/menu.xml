@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<item android:title="My Location"
+	<item android:title="Weather Provider"
 		android:icon="@drawable/ic_menu_mylocation" 
-		android:id="@+id/menu_item_mylocation" />
+		android:id="@+id/menu_item_weather_provider" />
 
 	<item android:title="Refresh"
 		android:icon="@drawable/ic_menu_refresh" 

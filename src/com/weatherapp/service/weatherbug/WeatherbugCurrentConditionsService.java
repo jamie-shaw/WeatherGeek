@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URI;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -81,21 +82,35 @@ public class WeatherbugCurrentConditionsService implements CurrentConditionsServ
 		
 		@Override
 		public Date getObservationDate() {
-			return new Date(Long.valueOf(dateTime));
+			return convertToDate(dateTime);
 		}
 		@Override
 		public Date getSunrise() {
-			return new Date(Long.valueOf(sunriseDateTime));
+			return convertToDate(sunriseDateTime);
 		}
 		@Override
 		public Date getSunset() {
-			return new Date(Long.valueOf(sunsetDateTime));
+			return convertToDate(sunsetDateTime);
 		}
 		@Override
 		public String getImageURL() {
 			return ServiceFactory.getImageService().getIconUrl(icon);
 		}
 
+		@Override
+		public String getHumidity() {
+			return humidity + "%";
+		}
+		
+		private Date convertToDate(String dateTime) {
+			TimeZone timeZone = TimeZone.getDefault();
+			
+			long gmtMillis = Long.parseLong(dateTime);
+			long offset = timeZone.getRawOffset(); 
+			long dst = timeZone.inDaylightTime(new Date()) ? timeZone.getDSTSavings() : 0;
+					
+			return new Date(Long.valueOf(gmtMillis - offset - dst));
+		}
 	}
 
 }

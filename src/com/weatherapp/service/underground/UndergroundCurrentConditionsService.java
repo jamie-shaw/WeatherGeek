@@ -3,7 +3,10 @@ package com.weatherapp.service.underground;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -73,7 +76,7 @@ public class UndergroundCurrentConditionsService implements
 			// Build the observation
 			observation = new UndergroundObservation();
 
-			observation.setDateTime(jsonObservation.getString("local_epoch"));
+			observation.setDateTime(jsonObservation.getString("local_epoch") + "000");
 			observation.setDesc(jsonObservation.getString("weather"));
 			observation.setFeelsLike(jsonObservation.getString("feelslike_f"));
 			observation.setHumidity(jsonObservation.getString("relative_humidity"));
@@ -90,7 +93,6 @@ public class UndergroundCurrentConditionsService implements
 		
 			observation.setSunriseDateTime(jsonSunrise.getString("hour") + ":" + jsonSunrise.getString("minute"));
 			observation.setSunsetDateTime(jsonSunset.getString("hour") + ":"+ jsonSunset.getString("minute"));
-			System.out.println(observation.getSunrise());
 			
 		} catch (Exception e) {
 			System.out.println("Something bad happened");
@@ -126,11 +128,16 @@ public class UndergroundCurrentConditionsService implements
 		}
 		
 		private static Date convertToDate(String sunphaseTime) {
-			Date time = new Date();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm", Locale.getDefault());
 			
-			String[] timePartsString = sunphaseTime.split(":");
-			time.setHours(Integer.parseInt(timePartsString[0]));
-			time.setMinutes(Integer.parseInt(timePartsString[1]));
+			Date time = null;
+			
+			try {
+				time = dateFormat.parse(sunphaseTime);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			return time;
 		}
