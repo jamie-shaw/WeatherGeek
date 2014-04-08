@@ -29,8 +29,7 @@ public class UndergroundCurrentConditionsService implements
 	 * @return the current conditions for the specified location
 	 */
 	public Observation getCurrentConditionsByLocation(final Location location) {
-		return getCurrentConditions(location.getLatitude() + ","
-				+ location.getLongitude());
+		return getCurrentConditions(location.getLatitude() + "," + location.getLongitude());
 	}
 
 	/**

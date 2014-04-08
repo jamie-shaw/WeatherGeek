@@ -2,34 +2,24 @@ package com.weatherapp.model;
 
 public interface DailyForecast {
 
-	public abstract String getLongDay();
+	public String getLongDay();
 
-	public abstract void setLongDay(String longDay);
+	public void setLongDay(String longDay);
 
-	public abstract String getShortDay();
+	public String getShortDay();
 
-	public abstract void setShortDay(String shortDay);
+	public void setShortDay(String shortDay);
 
-	public abstract String getShortPrediction();
+	public String getShortPrediction();
 
-	public abstract void setShortPrediction(String shortPrediction);
+	public void setShortPrediction(String shortPrediction);
 
-	public abstract String getLongPrediction();
+	public String getLongPrediction();
 
-	public abstract void setLongPrediction(String longPrediction);
+	public String getTemperature();
 
-	public abstract String getTemperature();
+	public String getImageName();
 
-	public abstract void setTemperature(String temperature);
-
-	public abstract String getImageName();
-
-	public abstract void setImageName(String imageName);
-
-	public abstract boolean isNight();
-
-	public abstract void setNight(boolean isNight);
-
-	public abstract String toString();
+	public boolean isDaylight();
 
 }

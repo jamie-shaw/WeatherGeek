@@ -15,5 +15,7 @@ public interface HourlyForecast {
 	public String getImageURL();
 
 	public String getLongPrediction();
+	
+	public boolean isDaylight();
 
 }

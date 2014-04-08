@@ -13,7 +13,7 @@ public class DefaultDailyForecast implements Serializable, DailyForecast {
 	protected String temperature;
 	protected String imageName;
 	protected String imageURL;
-	protected boolean isNight;
+	protected boolean daylight;
 	
 	@Override
 	public String getLongDay() {
@@ -50,7 +50,6 @@ public class DefaultDailyForecast implements Serializable, DailyForecast {
 		return longPrediction;
 	}
 
-	@Override
 	public void setLongPrediction(String longPrediction) {
 		this.longPrediction = longPrediction;
 	}
@@ -60,7 +59,6 @@ public class DefaultDailyForecast implements Serializable, DailyForecast {
 		return temperature;
 	}
 
-	@Override
 	public void setTemperature(String temperature) {
 		this.temperature = temperature;
 	}
@@ -70,19 +68,17 @@ public class DefaultDailyForecast implements Serializable, DailyForecast {
 		return imageName;
 	}
 
-	@Override
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
 	}
 
 	@Override
-	public boolean isNight() {
-		return isNight;
+	public boolean isDaylight() {
+		return daylight;
 	}
 
-	@Override
-	public void setNight(boolean isNight) {
-		this.isNight = isNight;
+	public void setDaylight(boolean daylight) {
+		this.daylight = daylight;
 	}
 
 	@Override

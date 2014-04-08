@@ -40,15 +40,17 @@ public class DailyForecastListAdapter extends ArrayAdapter<DailyForecast> {
         DailyForecast forecast = forecasts.get(position);
 
         TextView view = (TextView)convertView.findViewById(R.id.textViewForecastLabel); 
+
+        // this currently doesn't do anything.  need to figure out whether it's currently daylight or not
         switch (dayNumber) {
-		case -1:
-			view.setText(forecast.isNight() ? "Tonight" : "Today");
-			break;
-		case -2:
-			view.setText("Tomorrow");
-			break;
-		default:
-			view.setText(forecast.getLongDay());
+			case -1:
+				view.setText(forecast.isDaylight() ? "Today" : "Tonight");
+				break;
+			case -2:
+				view.setText("Tomorrow");
+				break;
+			default:
+				view.setText(forecast.getLongDay());
 		}
         
     	ImageView imageView = (ImageView)convertView.findViewById(R.id.imageDay);

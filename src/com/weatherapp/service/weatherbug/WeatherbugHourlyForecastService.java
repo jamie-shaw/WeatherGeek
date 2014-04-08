@@ -118,6 +118,7 @@ public class WeatherbugHourlyForecastService implements HourlyForecastService {
 		private String temperature;
 		private String windDir;
 		private String windSpeed;
+		private String daylight;
 		
 		@Override
 		public String getWindChill() {
@@ -149,6 +150,10 @@ public class WeatherbugHourlyForecastService implements HourlyForecastService {
 			long millis = Long.parseLong(dateTime);
 			
 			return new Date(Long.valueOf(millis - offset - dst));
+		}
+		@Override 
+		public boolean isDaylight() {
+			return Boolean.parseBoolean(daylight);
 		}
 		public void setDateTime(String dateTime) {
 			this.dateTime = dateTime;
@@ -183,7 +188,9 @@ public class WeatherbugHourlyForecastService implements HourlyForecastService {
 		public void setWindSpeed(String windSpeed) {
 			this.windSpeed = windSpeed;
 		}
-
+		public void setDay(String isDay) {
+			this.daylight = isDay;
+		}
 	}
 
 }

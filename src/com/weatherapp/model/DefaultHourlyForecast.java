@@ -21,6 +21,7 @@ public class DefaultHourlyForecast implements HourlyForecast, Serializable {
 	protected String temperature;
 	protected String windDir;
 	protected String windSpeed;
+	protected boolean daylight;
 
 	@Override
 	public String getWindChill() {
@@ -47,14 +48,20 @@ public class DefaultHourlyForecast implements HourlyForecast, Serializable {
 		return desc;
 	}
 
-	public void setChancePrecip(String chancePrecip) {
-		this.chancePrecip = chancePrecip;
-	}
-
+	@Override
 	public Date getDateTime() {
 		return new Date(Long.valueOf(dateTime));
 	}
 
+	@Override
+	public boolean isDaylight() {
+		return daylight;
+	}
+	
+	public void setChancePrecip(String chancePrecip) {
+		this.chancePrecip = chancePrecip;
+	}
+	
 	public void setDateTime(String dateTime) {
 		long dateTimeSeconds = Long.parseLong(dateTime);
 		this.dateTime = dateTimeSeconds * 1000L;
@@ -98,5 +105,8 @@ public class DefaultHourlyForecast implements HourlyForecast, Serializable {
 
 	public void setWindSpeed(String windSpeed) {
 		this.windSpeed = windSpeed;
+	}
+	public void setDaylight(String daylight) {
+		this.daylight = Boolean.parseBoolean(daylight);
 	}
 }

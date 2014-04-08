@@ -47,7 +47,7 @@ public class WeatherbugDailyForecastService implements DailyForecastService {
 
 			// Build the forecast list
 			List<WeatherBugForecast> wbForecasts = parser.fromJson(reader, WeatherBugForecastList.class).getForecastList();
-			DailyForecast forecast;
+			DefaultDailyForecast forecast;
 
 			for (WeatherBugForecast currentWbForecast : wbForecasts) {
 
@@ -59,6 +59,7 @@ public class WeatherbugDailyForecastService implements DailyForecastService {
 					forecast.setLongPrediction(currentWbForecast.getDayPred());
 					forecast.setTemperature(currentWbForecast.getHigh());
 					forecast.setLongDay(currentWbForecast.getDayTitle());
+					forecast.setDaylight(true);
 					forecasts.add(forecast);
 				}
 
@@ -70,6 +71,7 @@ public class WeatherbugDailyForecastService implements DailyForecastService {
 					forecast.setLongPrediction(currentWbForecast.getNightPred());
 					forecast.setTemperature(currentWbForecast.getLow());
 					forecast.setLongDay(currentWbForecast.getNightTitle());
+					forecast.setDaylight(false);
 					forecasts.add(forecast);
 				}
 			}

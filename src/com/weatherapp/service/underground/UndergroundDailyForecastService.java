@@ -64,7 +64,7 @@ public class UndergroundDailyForecastService implements DailyForecastService {
 			// Build the forecast list
 			for (int i=0; i<textForecastList.length(); i++) {
 				JSONObject textForecast = textForecastList.getJSONObject(i);
-				DailyForecast forecast = new DefaultDailyForecast();
+				DefaultDailyForecast forecast = new DefaultDailyForecast();
 				
 				forecast.setLongDay(textForecast.getString("title"));
 				forecast.setLongPrediction(textForecast.getString("fcttext"));
@@ -75,10 +75,12 @@ public class UndergroundDailyForecastService implements DailyForecastService {
 					// day
 					forecast.setImageName(textForecast.getString("icon"));
 					forecast.setTemperature(simpleForecastList.getJSONObject(j).getJSONObject("high").getString("fahrenheit"));
+					forecast.setDaylight(true);
 				} else {
 					// night
 					forecast.setImageName("nt_" + textForecast.getString("icon"));
-					forecast.setTemperature(simpleForecastList.getJSONObject(j).getJSONObject("low").getString("fahrenheit"));		
+					forecast.setTemperature(simpleForecastList.getJSONObject(j).getJSONObject("low").getString("fahrenheit"));	
+					forecast.setDaylight(false);
 				}
 				
 				forecasts.add(forecast);
